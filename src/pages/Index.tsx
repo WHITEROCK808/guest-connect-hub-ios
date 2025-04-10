@@ -33,9 +33,14 @@ const Index = () => {
           </Button>
         </div>
         
-        <p className="text-sm text-muted-foreground max-w-md mx-auto">
-          Welcome to the Guest Communication Hub. Choose your portal above to continue.
-        </p>
+        <div>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto mb-2">
+            Welcome to the Guest Communication Hub. Choose your portal above to continue.
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            © 2025 White Rock Hospitality Consulting. All rights reserved.
+          </p>
+        </div>
       </div>
     </div>
   );
