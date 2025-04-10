@@ -143,3 +143,22 @@ export const updateMessageStatus = (messageId: string, status: MessageStatus, as
   }
   return null;
 };
+
+// Add the delete message function
+export const deleteMessage = (messageId: string): boolean => {
+  try {
+    const messages = getMessages();
+    const filteredMessages = messages.filter(message => message.id !== messageId);
+    
+    // If the length is the same, the message wasn't found
+    if (filteredMessages.length === messages.length) {
+      return false;
+    }
+    
+    saveMessages(filteredMessages);
+    return true;
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    return false;
+  }
+};

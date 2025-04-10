@@ -5,7 +5,8 @@ import {
   getMessages, 
   Message, 
   addReply, 
-  updateMessageStatus, 
+  updateMessageStatus,
+  deleteMessage, 
   MessageStatus 
 } from "../../data/messages";
 import { useLanguage } from "../../contexts/LanguageContext";
@@ -17,13 +18,24 @@ import {
   ChevronLeft, 
   SendHorizontal, 
   UserCircle, 
-  CheckCircle 
+  CheckCircle,
+  Trash2
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import MessageStatusBadge from "./MessageStatus";
 import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const MessageDetail = () => {
   const { t } = useLanguage();
@@ -34,6 +46,7 @@ const MessageDetail = () => {
   const [message, setMessage] = useState<Message | null>(null);
   const [replyText, setReplyText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
@@ -141,6 +154,21 @@ const MessageDetail = () => {
     }
   };
   
+  const handleDeleteMessage = () => {
+    if (!messageId) return;
+    
+    const success = deleteMessage(messageId);
+    
+    if (success) {
+      toast.success("Message deleted successfully");
+      navigate("/staff");
+    } else {
+      toast.error("Failed to delete message");
+    }
+  };
+  
+  const isAdmin = user?.role === "admin";
+  
   if (!message) {
     return (
       <div className="flex items-center justify-center h-[60vh]">
@@ -167,6 +195,26 @@ const MessageDetail = () => {
   
   return (
     <div className="flex flex-col h-full">
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Message</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this message? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteMessage}
+              className="bg-destructive hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
@@ -191,6 +239,19 @@ const MessageDetail = () => {
         </div>
         
         <div className="flex items-center space-x-2">
+          {/* Admin Delete Button */}
+          {isAdmin && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDeleteDialogOpen(true)}
+              className="text-xs text-destructive"
+            >
+              <Trash2 className="h-3 w-3 mr-1" />
+              Delete
+            </Button>
+          )}
+        
           {message.status !== "completed" && (
             <Button
               variant="outline"
