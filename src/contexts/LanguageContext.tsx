@@ -44,6 +44,18 @@ const translations: Record<Language, Record<string, string>> = {
     "staff.send": "Send",
     "staff.markComplete": "Mark as Completed",
     "staff.logout": "Logout",
+    
+    // Statistics
+    "staff.statistics.link": "Statistics",
+    "staff.statistics.pageTitle": "Employee Ticket Performance",
+    "staff.statistics.title": "Employee Ticket Performance",
+    "staff.statistics.description": "View message handling statistics by staff member",
+    "staff.statistics.barChart": "Bar Chart",
+    "staff.statistics.pieChart": "Pie Chart",
+    "staff.statistics.today": "Today",
+    "staff.statistics.week": "This Week",
+    "staff.statistics.month": "This Month",
+    "staff.statistics.all": "All Time",
   },
   zh: {
     // Common
@@ -78,6 +90,18 @@ const translations: Record<Language, Record<string, string>> = {
     "staff.send": "發送",
     "staff.markComplete": "標記為已完成",
     "staff.logout": "登出",
+    
+    // Statistics
+    "staff.statistics.link": "統計圖表",
+    "staff.statistics.pageTitle": "員工處理績效圖表",
+    "staff.statistics.title": "員工處理績效圖表",
+    "staff.statistics.description": "查看員工訊息處理統計",
+    "staff.statistics.barChart": "柱狀圖",
+    "staff.statistics.pieChart": "圓餅圖",
+    "staff.statistics.today": "今天",
+    "staff.statistics.week": "本週",
+    "staff.statistics.month": "本月",
+    "staff.statistics.all": "所有時間",
   }
 };
 

@@ -15,6 +15,7 @@ import GuestPage from "./pages/GuestPage";
 import StaffLoginPage from "./pages/StaffLoginPage";
 import StaffDashboard from "./pages/StaffDashboard";
 import StaffMessagePage from "./pages/StaffMessagePage";
+import StaffStatisticsPage from "./pages/StaffStatisticsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,14 @@ const App = () => (
                   element={
                     <PrivateRoute>
                       <StaffMessagePage />
+                    </PrivateRoute>
+                  } 
+                />
+                <Route 
+                  path="/staff/statistics" 
+                  element={
+                    <PrivateRoute adminOnly={true}>
+                      <StaffStatisticsPage />
                     </PrivateRoute>
                   } 
                 />

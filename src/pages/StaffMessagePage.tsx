@@ -9,7 +9,7 @@ const StaffMessagePage = () => {
   
   return (
     <Layout>
-      <MessageDetail />
+      <MessageDetail messageId={messageId} />
     </Layout>
   );
 };

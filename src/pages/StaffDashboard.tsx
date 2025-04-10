@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import MessageList from "../components/staff/MessageList";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import { LogOut, BarChart } from "lucide-react";
 
 const StaffDashboard = () => {
   const { t } = useLanguage();
@@ -18,6 +18,8 @@ const StaffDashboard = () => {
     navigate("/staff/login");
   };
   
+  const isAdmin = user?.role === "admin";
+  
   return (
     <Layout title={t("staff.dashboard.title")}>
       <div className="mb-4 flex items-center justify-between">
@@ -26,10 +28,18 @@ const StaffDashboard = () => {
             {user?.role === "admin" ? "Admin" : "Staff"}: {user?.name}
           </h2>
         </div>
-        <Button variant="outline" size="sm" onClick={handleLogout}>
-          <LogOut className="h-4 w-4 mr-1" />
-          {t("staff.logout")}
-        </Button>
+        <div className="flex space-x-2">
+          {isAdmin && (
+            <Button variant="outline" size="sm" onClick={() => navigate("/staff/statistics")}>
+              <BarChart className="h-4 w-4 mr-1" />
+              {t("staff.statistics.link")}
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleLogout}>
+            <LogOut className="h-4 w-4 mr-1" />
+            {t("staff.logout")}
+          </Button>
+        </div>
       </div>
       
       <MessageList />
