@@ -1,11 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "../contexts/LanguageContext";
+import { MessageSquare, Users } from "lucide-react";
 
 const Index = () => {
+  const { t } = useLanguage();
+  
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <div className="text-center space-y-8 animate-fade-in">
+        <h1 className="text-4xl font-bold">{t("app.title")}</h1>
+        
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <Link to="/guest">
+            <Button className="flex items-center w-full md:w-auto ios-button bg-ios-blue px-8 py-6">
+              <MessageSquare className="h-5 w-5 mr-2" />
+              Guest Portal
+            </Button>
+          </Link>
+          
+          <Link to="/staff/login">
+            <Button variant="outline" className="flex items-center w-full md:w-auto px-8 py-6">
+              <Users className="h-5 w-5 mr-2" />
+              Staff Portal
+            </Button>
+          </Link>
+        </div>
+        
+        <p className="text-sm text-muted-foreground max-w-md mx-auto">
+          Welcome to the Guest Communication Hub. Choose your portal above to continue.
+        </p>
       </div>
     </div>
   );
